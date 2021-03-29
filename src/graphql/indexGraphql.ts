@@ -7,7 +7,7 @@ export async function prepararServidor(){
       
       playground: true,
       introspection: true,
-      schema: await schemas   //await buildSchema({resolvers:[HolaResolvers]})
+      schema: await schemas   
       
   });
       server.applyMiddleware({app,path:'/joder',cors:true})
