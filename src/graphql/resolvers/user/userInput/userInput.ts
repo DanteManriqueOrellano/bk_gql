@@ -1,15 +1,16 @@
 import { Collection } from "fireorm";
 import { Field, InputType } from "type-graphql";
 
+
 @InputType()
 @Collection()
-export class User {
+export class UserInput {
     @Field()
-    id ="01"
+    id:string;
     @Field()
-    firstName:string =""
+    firstName:string; 
     @Field()
-    email:string =""
+    email:string;
     @Field()
-    password : string =""
+    password : string; 
 }

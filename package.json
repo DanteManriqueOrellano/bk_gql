@@ -14,10 +14,12 @@
   "main": "lib/index.js",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
+    "@types/ioredis": "^4.22.2",
     "apollo-server": "^2.21.2",
     "apollo-server-cloud-functions": "^2.21.2",
     "apollo-server-express": "^2.21.2",
     "bcrypt": "^5.0.1",
+    "class-validator": "^0.13.1",
     "connect-redis": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -27,6 +29,9 @@
     "fireorm": "^0.20.0",
     "gql_din_mod": "^0.1.1",
     "graphql": "^15.5.0",
+    "ioredis": "^4.24.6",
+    "redis": "^3.0.2",
+    "redis-server": "^1.2.2",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1"
   },

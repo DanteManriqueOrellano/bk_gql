@@ -10,7 +10,25 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
 
+    "moduleResolution": "node",
+    "declaration": false,
+
+    "composite": false,
+    "removeComments": true,
+    "noImplicitAny": true,
+
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+  
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+  
   },
   "compileOnSave": true,
   "include": [
