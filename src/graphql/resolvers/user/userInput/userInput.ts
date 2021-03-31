@@ -5,7 +5,7 @@ import { Field, InputType } from "type-graphql";
 @Collection()
 export class User {
     @Field()
-    id =""
+    id ="01"
     @Field()
     firstName:string =""
     @Field()
