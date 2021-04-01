@@ -1,45 +1,71 @@
 import "reflect-metadata";
+import 'class-validator'
 import { ApolloServer } from "apollo-server-express";
 import { schemas } from "./schemas/indexSchema";
-import session from "express-session";
+/*import session from "express-session";
 import connectRedis from "connect-redis";
-import {redis} from '../utils/redis';
+import {redis} from '../utils/redis';*/
 import cors from 'cors';
 
+var jwt = require('express-jwt');
 import {app} from '../index';
 
+
 export async function prepararServidor(){
+
+  const path = "/joder";
+  app.use(
+    path,
+    jwt({
+      secret: "TypeGraphQL",
+      credentialsRequired: false,
+    }),
+  );
+
   
     const server = new ApolloServer({
       
       playground: true,
       introspection: true,
       schema: await schemas,
-      context : ({req}:any)=> ({req})   
+      context: ({ req }) => {
+        const context = {
+          req,
+          user: req.user, // `req.user` comes from `express-jwt`
+        };
+        return context;
+      },
+      
+         
       
   });
-  const RedisStore = connectRedis(session);
+ // const RedisStore = connectRedis(session);
   app.use(cors({
       credentials : true,
       origin : "http://localhost:5000"
   }));
 
-  app.use(
+  
+ 
+
+
+  /*app.use(
     session({
       store: new RedisStore({
         client: redis as any
       }),
       name: "qid",
       secret: "aslkdfjoiq12312",
-      resave: true,
-      saveUninitialized: true,
+      resave: false,
+      saveUninitialized: false,
       cookie: {
+        signed:true,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7 * 365 // 7 years
       }
     })
-  );
+  );*/
  
       server.applyMiddleware({app,path:'/joder',cors:true})
   }

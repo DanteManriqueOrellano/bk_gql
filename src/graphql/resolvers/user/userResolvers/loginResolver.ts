@@ -25,9 +25,9 @@ export class LoginResolver {
     if (!valid) {
       return null;
     }
-    ctx.req.session.id = documentUser.id 
-    console.log(ctx.req.session!.id)
-    console.log(email,password)
+    //console.log(ctx.req.session!.sssss)//= documentUser.id 
+    //ctx.req.session!.id
+    //console.log(ctx.req.session!.id)
 
     return documentUser;
   }
