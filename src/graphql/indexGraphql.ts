@@ -9,8 +9,6 @@ import {app} from '../index';
 
 const {Firestore} = require('@google-cloud/firestore');
 const {FirestoreStore} = require('@google-cloud/connect-firestore');
-import  * as bodyParser from 'body-parser'
-
 
 export async function prepararServidor(){
 
@@ -26,10 +24,7 @@ export async function prepararServidor(){
          
       
   });
-  app.use(bodyParser.urlencoded({
-    extended:true
-  }))
-
+  
   app.use(
     session({
       store: new FirestoreStore({

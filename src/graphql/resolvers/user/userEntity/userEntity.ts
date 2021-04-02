@@ -1,4 +1,5 @@
-import { Field, ObjectType } from 'type-graphql';
+
+import { Field, ObjectType, } from 'type-graphql';
 
 @ObjectType()
 export class User {
@@ -10,5 +11,7 @@ export class User {
   email:string;
   @Field()
   password : string; 
+  @Field(_type => [String])
+  roles: string[];
   
 }

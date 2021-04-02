@@ -1,7 +1,7 @@
 import { AuthChecker } from "./AuthChecker";
 import { Context } from "./context.interface";
 
-export const authChecker: AuthChecker<Context> = ({ context: { user } }, roles) => {
+export const myAuthChecker: AuthChecker<Context> = ({ context: { user } }, roles) => {
     if (roles.length === 0) {
       // if `@Authorized()`, check only if user exists
       return user !== undefined;

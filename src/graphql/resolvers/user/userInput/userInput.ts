@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { Collection } from "fireorm";
 import { Field, InputType } from "type-graphql";
 
@@ -13,4 +14,6 @@ export class UserInput {
     email:string;
     @Field()
     password : string; 
+    @Field((_type) => [String])
+    roles:string[]
 }
