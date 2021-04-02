@@ -2,44 +2,53 @@ import "reflect-metadata";
 import 'class-validator'
 import { ApolloServer } from "apollo-server-express";
 import { schemas } from "./schemas/indexSchema";
-/*import session from "express-session";
-import connectRedis from "connect-redis";
-import {redis} from '../utils/redis';*/
+import session from "express-session";
 import cors from 'cors';
 
-var jwt = require('express-jwt');
 import {app} from '../index';
+
+const {Firestore} = require('@google-cloud/firestore');
+const {FirestoreStore} = require('@google-cloud/connect-firestore');
+import  * as bodyParser from 'body-parser'
 
 
 export async function prepararServidor(){
 
-  const path = "/joder";
-  app.use(
-    path,
-    jwt({
-      secret: "TypeGraphQL",
-      credentialsRequired: false,
-    }),
-  );
-
+  
   
     const server = new ApolloServer({
       
       playground: true,
       introspection: true,
       schema: await schemas,
-      context: ({ req }) => {
-        const context = {
-          req,
-          user: req.user, // `req.user` comes from `express-jwt`
-        };
-        return context;
-      },
+      context: ({ req,res }) => ({req,res})
       
          
       
   });
- // const RedisStore = connectRedis(session);
+  app.use(bodyParser.urlencoded({
+    extended:true
+  }))
+
+  app.use(
+    session({
+      store: new FirestoreStore({
+        dataset: new Firestore(),
+        kind: 'express-sessions',
+      }),
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        signed:true,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+        sameSite:true
+
+      }
+    })
+  );
   app.use(cors({
       credentials : true,
       origin : "http://localhost:5000"
@@ -48,24 +57,5 @@ export async function prepararServidor(){
   
  
 
-
-  /*app.use(
-    session({
-      store: new RedisStore({
-        client: redis as any
-      }),
-      name: "qid",
-      secret: "aslkdfjoiq12312",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        signed:true,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 365 // 7 years
-      }
-    })
-  );*/
- 
       server.applyMiddleware({app,path:'/joder',cors:true})
   }

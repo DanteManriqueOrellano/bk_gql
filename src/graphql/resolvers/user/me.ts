@@ -12,11 +12,17 @@ export class MeResolver {
       
       ): Promise<UserInput | undefined> {
     
-        if (!ctx.req.session!.id) {
+        
+        if (!ctx.req.session!.userId) {
           return undefined;
         }
         const userCollection = getBaseRepository(UserInput);
-        return userCollection.findById(ctx.req.session!.id);
+        
+        //const jode = await userCollection.findById(ctx.req.session!.id) 
+        
+        //console.log(jode)
+        
+        return await userCollection.findById(ctx.req.session!.userId);
 
     
   }

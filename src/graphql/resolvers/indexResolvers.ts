@@ -14,4 +14,6 @@ export const clasesResolver:NonEmptyArray<ClassType> = [
     LoginResolver,
     MeResolver,
     LogoutResolver,
+    
 ]
+

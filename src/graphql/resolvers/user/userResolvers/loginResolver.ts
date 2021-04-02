@@ -1,9 +1,9 @@
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import bcrypt from "bcrypt";
 import { getBaseRepository} from 'fireorm'
-import { MyContext } from "../../../types/myContex";
 import { UserInput } from "../userInput/userInput";
 import { User } from "../userEntity/userEntity";
+import { MyContext } from "../../../types/myContex";
 
 
 @Resolver()
@@ -12,11 +12,12 @@ export class LoginResolver {
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() ctx: MyContext
+    @Ctx() ctx:MyContext
+    
   ): Promise<UserInput | null> {
     const userCollections = getBaseRepository(UserInput)
     const documentUser = await userCollections.whereEqualTo(a=>a.email,email).findOne()
-    
+    console.log(documentUser)
     if (!documentUser) {
       return null;
     }
@@ -25,9 +26,8 @@ export class LoginResolver {
     if (!valid) {
       return null;
     }
-    //console.log(ctx.req.session!.sssss)//= documentUser.id 
-    //ctx.req.session!.id
-    //console.log(ctx.req.session!.id)
+    ctx.req.session!.userId = documentUser.id
+    
 
     return documentUser;
   }
