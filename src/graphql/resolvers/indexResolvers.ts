@@ -16,4 +16,3 @@ export const clasesResolver:NonEmptyArray<ClassType> = [
     LogoutResolver,
     
 ]
-
