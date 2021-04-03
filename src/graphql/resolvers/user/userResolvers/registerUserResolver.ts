@@ -1,14 +1,14 @@
-import { Args, ArgsType, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
+import { Args, ArgsType, Field, InputType, Mutation, ObjectType, Resolver, UseMiddleware } from "type-graphql";
 //import { UserInput } from "../userInput/userInput";
 import bcrypt from "bcrypt";
 import { Collection, getRepository } from "fireorm";
 //import { User } from "../userEntity/userEntity";
-//import { isAuth } from "../../../middleware/isAuth";
+import { isAuth } from "../../../middleware/isAuth";
 
 @ArgsType()
 @ObjectType()
 @InputType()
-@Collection()
+@Collection('Usuarios')
 export class MyUser {
   @Field()
   id:string;
@@ -25,7 +25,7 @@ export class MyUser {
 @Resolver()
 export class RegisterUserResolver{
   
-  //@UseMiddleware(isAuth)
+  @UseMiddleware(isAuth)
   @Mutation(() => MyUser)
   async register(
       
